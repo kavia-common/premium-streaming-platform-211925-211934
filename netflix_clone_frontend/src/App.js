@@ -1,48 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { NotificationProvider } from './context/NotificationContext';
+import { MyListProvider } from './context/MyListContext';
+import Navbar from './components/Navbar';
+import Toast from './components/Toast';
+import Home from './pages/Home';
+import Genres from './pages/Genres';
+import MyList from './pages/MyList';
+import Kids from './pages/Kids';
+import Search from './pages/Search';
+import TitleDetail from './pages/TitleDetail';
 
 // PUBLIC_INTERFACE
+/**
+ * Main App component with routing and context providers
+ */
 function App() {
-  const [theme, setTheme] = useState('light');
-
-  // Effect to apply theme to document element
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  // PUBLIC_INTERFACE
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <button 
-          className="theme-toggle" 
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-        >
-          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-        </button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Current theme: <strong>{theme}</strong>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <NotificationProvider>
+        <MyListProvider>
+          <div className="min-h-screen bg-background">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/genres" element={<Genres />} />
+              <Route path="/my-list" element={<MyList />} />
+              <Route path="/kids" element={<Kids />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/title/:id" element={<TitleDetail />} />
+            </Routes>
+            <Toast />
+          </div>
+        </MyListProvider>
+      </NotificationProvider>
+    </Router>
   );
 }
 
