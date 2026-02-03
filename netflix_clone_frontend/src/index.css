@@ -8,9 +8,8 @@
   }
 
   body {
-    @apply m-0 bg-background text-text antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    @apply m-0 bg-bg-primary text-text-primary antialiased;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -59,7 +58,7 @@
   position: absolute;
   top: -40px;
   left: 0;
-  background: #374151;
+  background: #E50914;
   color: white;
   padding: 8px;
   text-decoration: none;

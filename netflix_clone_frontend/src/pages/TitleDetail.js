@@ -16,12 +16,15 @@ const TitleDetail = () => {
 
   if (!title) {
     return (
-      <main className="pt-24 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
+      <main className="pt-24 px-4 sm:px-6 lg:px-14 min-h-screen flex items-center justify-center bg-bg-primary">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-text mb-4">Title Not Found</h1>
+          <h1 className="text-3xl font-bold text-text-primary mb-4">Title Not Found</h1>
           <button
             onClick={() => navigate('/')}
-            className="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition-colors"
+            className="text-white px-6 py-3 rounded-md transition-colors"
+            style={{ background: '#E50914' }}
+            onMouseEnter={(e) => e.target.style.background = '#F40612'}
+            onMouseLeave={(e) => e.target.style.background = '#E50914'}
           >
             Go Home
           </button>
@@ -44,9 +47,9 @@ const TitleDetail = () => {
   };
 
   return (
-    <main className="pt-16 min-h-screen">
+    <main className="pt-16 min-h-screen bg-bg-primary">
       {/* Hero Section */}
-      <div className="relative h-[60vh] bg-gradient-to-b from-primary/30 to-background">
+      <div className="relative h-[60vh]" style={{ background: 'linear-gradient(to bottom, rgba(229, 9, 20, 0.2), #141414)' }}>
         <div className="absolute inset-0">
           <img
             src={title.thumbnail}
@@ -54,44 +57,48 @@ const TitleDetail = () => {
             className="w-full h-full object-cover opacity-40"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #141414 0%, rgba(20, 20, 20, 0.5) 50%, transparent 100%)' }} />
         </div>
 
-        <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-end pb-16">
+        <div className="relative z-10 h-full max-w-full mx-auto px-4 sm:px-6 lg:px-14 flex items-end pb-16">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-text mb-4">
+            <h1 className="text-5xl md:text-6xl font-bold text-text-primary mb-4">
               {title.title}
             </h1>
             <div className="flex items-center space-x-4 text-sm">
-              <span className="bg-success text-white px-3 py-1 rounded font-semibold">
+              <span className="text-white px-3 py-1 rounded font-semibold" style={{ background: '#46D369' }}>
                 {title.rating}
               </span>
-              <span className="text-text">{title.year}</span>
-              <span className="text-text">{title.duration}</span>
+              <span className="text-text-primary">{title.year}</span>
+              <span className="text-text-primary">{title.duration}</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-14 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-text mb-4">Overview</h2>
-              <p className="text-text/80 text-lg leading-relaxed">
+              <h2 className="text-2xl font-bold text-text-primary mb-4">Overview</h2>
+              <p className="text-text-secondary text-lg leading-relaxed">
                 {title.description}
               </p>
             </div>
 
             <div className="mb-8">
-              <h3 className="text-xl font-semibold text-text mb-3">Genres</h3>
+              <h3 className="text-xl font-semibold text-text-primary mb-3">Genres</h3>
               <div className="flex flex-wrap gap-2">
                 {title.genre.map((genre) => (
                   <span
                     key={genre}
-                    className="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium"
+                    className="px-4 py-2 rounded-full text-sm font-medium"
+                    style={{
+                      background: 'rgba(229, 9, 20, 0.2)',
+                      color: '#E50914',
+                    }}
                   >
                     {genre}
                   </span>
@@ -101,22 +108,25 @@ const TitleDetail = () => {
 
             {title.cast && title.cast.length > 0 && (
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-text mb-3">Cast</h3>
-                <p className="text-text/80">{title.cast.join(', ')}</p>
+                <h3 className="text-xl font-semibold text-text-primary mb-3">Cast</h3>
+                <p className="text-text-secondary">{title.cast.join(', ')}</p>
               </div>
             )}
 
             {title.director && (
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-text mb-3">Director</h3>
-                <p className="text-text/80">{title.director}</p>
+                <h3 className="text-xl font-semibold text-text-primary mb-3">Director</h3>
+                <p className="text-text-secondary">{title.director}</p>
               </div>
             )}
 
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 mt-8">
               <button
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-md font-semibold transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="text-white px-8 py-3 rounded-md font-semibold transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-bg-primary"
+                style={{ background: '#E50914' }}
+                onMouseEnter={(e) => e.target.style.background = '#F40612'}
+                onMouseLeave={(e) => e.target.style.background = '#E50914'}
                 aria-label={`Play ${title.title}`}
               >
                 <span className="flex items-center">
@@ -129,11 +139,18 @@ const TitleDetail = () => {
 
               <button
                 onClick={handleMyListClick}
-                className={`px-8 py-3 rounded-md font-semibold border-2 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-                  inList
-                    ? 'bg-success text-white border-success'
-                    : 'bg-surface text-primary border-primary hover:bg-primary/10'
-                }`}
+                className="px-8 py-3 rounded-md font-semibold border-2 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-bg-primary"
+                style={{
+                  background: inList ? '#46D369' : '#181818',
+                  color: inList ? '#FFFFFF' : '#E50914',
+                  borderColor: inList ? '#46D369' : '#E50914',
+                }}
+                onMouseEnter={(e) => {
+                  if (!inList) e.target.style.background = 'rgba(229, 9, 20, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!inList) e.target.style.background = '#181818';
+                }}
                 aria-label={inList ? 'Remove from My List' : 'Add to My List'}
               >
                 <span className="flex items-center">
@@ -157,7 +174,14 @@ const TitleDetail = () => {
 
               <button
                 onClick={() => navigate(-1)}
-                className="bg-surface text-text px-8 py-3 rounded-md font-semibold border border-primary/20 hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                className="px-8 py-3 rounded-md font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-bg-primary"
+                style={{
+                  background: '#181818',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                }}
+                onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
+                onMouseLeave={(e) => e.target.style.background = '#181818'}
               >
                 Back
               </button>
@@ -166,20 +190,20 @@ const TitleDetail = () => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-surface rounded-lg p-6 border border-primary/10">
-              <h3 className="text-xl font-semibold text-text mb-4">Details</h3>
+            <div className="rounded-lg p-6" style={{ background: '#181818', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+              <h3 className="text-xl font-semibold text-text-primary mb-4">Details</h3>
               <dl className="space-y-3">
                 <div>
-                  <dt className="text-sm text-secondary">Year</dt>
-                  <dd className="text-text font-medium">{title.year}</dd>
+                  <dt className="text-sm text-text-tertiary">Year</dt>
+                  <dd className="text-text-primary font-medium">{title.year}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-secondary">Rating</dt>
-                  <dd className="text-text font-medium">{title.rating}</dd>
+                  <dt className="text-sm text-text-tertiary">Rating</dt>
+                  <dd className="text-text-primary font-medium">{title.rating}</dd>
                 </div>
                 <div>
-                  <dt className="text-sm text-secondary">Duration</dt>
-                  <dd className="text-text font-medium">{title.duration}</dd>
+                  <dt className="text-sm text-text-tertiary">Duration</dt>
+                  <dd className="text-text-primary font-medium">{title.duration}</dd>
                 </div>
               </dl>
             </div>
@@ -189,13 +213,13 @@ const TitleDetail = () => {
         {/* Related Titles */}
         {relatedTitles.length > 0 && (
           <div className="mt-16">
-            <h2 className="text-3xl font-bold text-text mb-6">More Like This</h2>
+            <h2 className="text-3xl font-bold text-text-primary mb-6">More Like This</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {relatedTitles.map((relatedTitle) => (
                 <button
                   key={relatedTitle.id}
                   onClick={() => navigate(`/title/${relatedTitle.id}`)}
-                  className="text-left group focus:outline-none focus:ring-2 focus:ring-primary rounded-lg"
+                  className="text-left group focus:outline-none focus:ring-2 focus:ring-white rounded-lg"
                 >
                   <div className="relative aspect-video rounded-lg overflow-hidden mb-2">
                     <img
@@ -204,10 +228,10 @@ const TitleDetail = () => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   </div>
-                  <h3 className="font-semibold text-text group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-text-primary group-hover:text-netflix-red transition-colors">
                     {relatedTitle.title}
                   </h3>
-                  <p className="text-sm text-secondary">{relatedTitle.year}</p>
+                  <p className="text-sm text-text-secondary">{relatedTitle.year}</p>
                 </button>
               ))}
             </div>

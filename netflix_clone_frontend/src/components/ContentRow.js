@@ -3,7 +3,7 @@ import TitleCard from './TitleCard';
 
 // PUBLIC_INTERFACE
 /**
- * Horizontal scrolling row of title cards with navigation arrows
+ * Horizontal scrolling row of title cards with Netflix-style navigation arrows
  */
 const ContentRow = ({ title, titles, id }) => {
   const scrollRef = useRef(null);
@@ -44,10 +44,11 @@ const ContentRow = ({ title, titles, id }) => {
   };
 
   return (
-    <section className="mb-10" aria-labelledby={`row-title-${id}`}>
+    <section className="mb-12 px-4 sm:px-6 lg:px-14" aria-labelledby={`row-title-${id}`}>
       <h2
         id={`row-title-${id}`}
-        className="text-2xl font-bold text-text mb-4 px-4 sm:px-6 lg:px-8"
+        className="text-2xl font-bold mb-4"
+        style={{ color: '#E5E5E5' }}
       >
         {title}
       </h2>
@@ -57,14 +58,18 @@ const ContentRow = ({ title, titles, id }) => {
         {showLeftArrow && (
           <button
             onClick={() => scroll('left')}
-            className="absolute left-0 top-0 bottom-0 z-30 bg-gradient-to-r from-background to-transparent w-16 flex items-center justify-start pl-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 focus:opacity-100"
+            className="absolute left-0 top-0 bottom-0 z-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 focus:opacity-100"
+            style={{
+              width: '3.5rem',
+              background: 'rgba(20, 20, 20, 0.5)',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(20, 20, 20, 0.8)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(20, 20, 20, 0.5)'}
             aria-label={`Scroll ${title} left`}
           >
-            <div className="bg-primary/80 hover:bg-primary text-white p-2 rounded-full">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </div>
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
         )}
 
@@ -72,14 +77,18 @@ const ContentRow = ({ title, titles, id }) => {
         {showRightArrow && (
           <button
             onClick={() => scroll('right')}
-            className="absolute right-0 top-0 bottom-0 z-30 bg-gradient-to-l from-background to-transparent w-16 flex items-center justify-end pr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 focus:opacity-100"
+            className="absolute right-0 top-0 bottom-0 z-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 focus:opacity-100"
+            style={{
+              width: '3.5rem',
+              background: 'rgba(20, 20, 20, 0.5)',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(20, 20, 20, 0.8)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(20, 20, 20, 0.5)'}
             aria-label={`Scroll ${title} right`}
           >
-            <div className="bg-primary/80 hover:bg-primary text-white p-2 rounded-full">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         )}
 
@@ -88,7 +97,7 @@ const ContentRow = ({ title, titles, id }) => {
           ref={scrollRef}
           onScroll={handleScroll}
           onKeyDown={handleKeyDown}
-          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-snap-x px-4 sm:px-6 lg:px-8 py-2"
+          className="flex gap-2 overflow-x-auto scrollbar-hide py-2"
           role="list"
           tabIndex={0}
           aria-label={`${title} content carousel`}

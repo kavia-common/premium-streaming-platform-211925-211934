@@ -3,7 +3,7 @@ import { useNotification } from '../context/NotificationContext';
 
 // PUBLIC_INTERFACE
 /**
- * Toast notification component for user feedback
+ * Toast notification component with Netflix styling for user feedback
  */
 const Toast = () => {
   const { toasts, removeToast } = useNotification();
@@ -37,12 +37,12 @@ const Toast = () => {
   const getColors = (type) => {
     switch (type) {
       case 'success':
-        return 'bg-success text-white';
+        return { background: '#46D369', color: '#FFFFFF' };
       case 'error':
-        return 'bg-error text-white';
+        return { background: '#EF4444', color: '#FFFFFF' };
       case 'info':
       default:
-        return 'bg-primary text-white';
+        return { background: '#E50914', color: '#FFFFFF' };
     }
   };
 
@@ -53,24 +53,31 @@ const Toast = () => {
       aria-label="Notifications"
       aria-live="polite"
     >
-      {toasts.map((toast) => (
-        <div
-          key={toast.id}
-          className={`${getColors(toast.type)} px-6 py-4 rounded-lg shadow-xl flex items-center space-x-3 min-w-[300px] animate-slide-in`}
-        >
-          <div className="flex-shrink-0">{getIcon(toast.type)}</div>
-          <p className="flex-1 text-sm font-medium">{toast.message}</p>
-          <button
-            onClick={() => removeToast(toast.id)}
-            className="flex-shrink-0 hover:opacity-80 transition-opacity"
-            aria-label="Close notification"
+      {toasts.map((toast) => {
+        const colors = getColors(toast.type);
+        return (
+          <div
+            key={toast.id}
+            className="px-6 py-4 rounded shadow-xl flex items-center space-x-3 min-w-[300px] animate-slide-in"
+            style={{ 
+              background: colors.background,
+              color: colors.color,
+            }}
           >
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </button>
-        </div>
-      ))}
+            <div className="flex-shrink-0">{getIcon(toast.type)}</div>
+            <p className="flex-1 text-sm font-medium">{toast.message}</p>
+            <button
+              onClick={() => removeToast(toast.id)}
+              className="flex-shrink-0 hover:opacity-80 transition-opacity"
+              aria-label="Close notification"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 };

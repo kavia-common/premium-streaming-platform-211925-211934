@@ -20,7 +20,7 @@ function App() {
     <Router>
       <NotificationProvider>
         <MyListProvider>
-          <div className="min-h-screen bg-background">
+          <div className="min-h-screen bg-bg-primary">
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />

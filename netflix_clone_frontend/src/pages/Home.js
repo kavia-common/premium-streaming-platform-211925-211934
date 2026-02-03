@@ -15,7 +15,7 @@ const Home = () => {
   const dramaTitles = getTitlesByGenre('Drama');
 
   return (
-    <main className="pt-16">
+    <main className="pt-16 bg-bg-primary">
       {/* Skip to main content link for accessibility */}
       <a href="#main-content" className="skip-link">
         Skip to main content
@@ -23,7 +23,7 @@ const Home = () => {
 
       <Billboard />
 
-      <div id="main-content" className="py-8 space-y-8">
+      <div id="main-content" className="py-8">
         <ContentRow title="Trending Now" titles={trendingTitles} id="trending" />
         <ContentRow title="Action & Adventure" titles={actionTitles} id="action" />
         <ContentRow title="Comedies" titles={comedyTitles} id="comedy" />

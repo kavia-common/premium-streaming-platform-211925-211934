@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 // PUBLIC_INTERFACE
 /**
- * Reusable modal component with accessibility features
+ * Reusable modal component with Netflix dark styling and accessibility features
  */
 const Modal = ({ isOpen, onClose, children, title }) => {
   useEffect(() => {
@@ -60,25 +60,40 @@ const Modal = ({ isOpen, onClose, children, title }) => {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0"
+        style={{
+          background: 'rgba(0, 0, 0, 0.7)',
+          backdropFilter: 'blur(5px)',
+        }}
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal Content */}
-      <div className="relative bg-surface rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-up">
-        <div className="sticky top-0 z-10 bg-surface border-b border-primary/10 px-6 py-4 flex items-center justify-between">
+      <div 
+        className="relative bg-bg-elevated rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-up"
+      >
+        <div 
+          className="sticky top-0 z-10 bg-bg-elevated px-6 py-4 flex items-center justify-between"
+          style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}
+        >
           {title && (
-            <h2 id="modal-title" className="text-xl font-bold text-text">
+            <h2 id="modal-title" className="text-xl font-bold text-text-primary">
               {title}
             </h2>
           )}
           <button
             onClick={onClose}
-            className="ml-auto p-2 hover:bg-primary/10 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+            className="ml-auto p-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+            style={{
+              background: '#181818',
+              color: '#FFFFFF',
+            }}
+            onMouseEnter={(e) => e.target.style.background = '#2F2F2F'}
+            onMouseLeave={(e) => e.target.style.background = '#181818'}
             aria-label="Close modal"
           >
-            <svg className="w-6 h-6 text-text" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>

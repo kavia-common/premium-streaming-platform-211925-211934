@@ -36,9 +36,9 @@ const Search = () => {
   const years = [2022, 2023];
 
   return (
-    <main className="pt-24 px-4 sm:px-6 lg:px-8 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-text mb-8">Search</h1>
+    <main className="pt-24 px-4 sm:px-6 lg:px-14 min-h-screen bg-bg-primary">
+      <div className="max-w-full mx-auto">
+        <h1 className="text-4xl font-bold text-text-primary mb-8">Search</h1>
 
         {/* Search Input */}
         <div className="mb-6">
@@ -52,11 +52,16 @@ const Search = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search titles, genres, or keywords..."
-              className="w-full px-4 py-3 pl-12 bg-surface border border-primary/20 rounded-lg text-text placeholder-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="w-full px-4 py-3 pl-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+              style={{
+                background: '#2F2F2F',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#FFFFFF',
+              }}
               autoFocus
             />
             <svg
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-tertiary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -76,14 +81,19 @@ const Search = () => {
         <div className="mb-8 flex flex-wrap gap-4">
           {/* Genre Filter */}
           <div>
-            <label htmlFor="genre-filter" className="block text-sm font-medium text-text mb-2">
+            <label htmlFor="genre-filter" className="block text-sm font-medium text-text-primary mb-2">
               Genre
             </label>
             <select
               id="genre-filter"
               value={filters.genre}
               onChange={(e) => handleFilterChange('genre', e.target.value)}
-              className="px-4 py-2 bg-surface border border-primary/20 rounded-lg text-text focus:outline-none focus:ring-2 focus:ring-primary"
+              className="px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+              style={{
+                background: '#2F2F2F',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#FFFFFF',
+              }}
             >
               <option value="All">All Genres</option>
               {GENRES.map((genre) => (
@@ -96,7 +106,7 @@ const Search = () => {
 
           {/* Year Filter */}
           <div>
-            <label htmlFor="year-filter" className="block text-sm font-medium text-text mb-2">
+            <label htmlFor="year-filter" className="block text-sm font-medium text-text-primary mb-2">
               Year
             </label>
             <select
@@ -119,7 +129,14 @@ const Search = () => {
             <div className="flex items-end">
               <button
                 onClick={clearFilters}
-                className="px-4 py-2 bg-surface text-text border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                className="px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+                style={{
+                  background: '#2F2F2F',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  color: '#FFFFFF',
+                }}
+                onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
+                onMouseLeave={(e) => e.target.style.background = '#2F2F2F'}
               >
                 Clear All
               </button>
@@ -130,7 +147,7 @@ const Search = () => {
         {/* Results */}
         {hasSearched && (
           <div className="mb-6">
-            <p className="text-secondary">
+            <p className="text-text-secondary">
               {results.length} {results.length === 1 ? 'result' : 'results'} found
             </p>
           </div>
@@ -145,7 +162,8 @@ const Search = () => {
         ) : hasSearched ? (
           <div className="text-center py-16">
             <svg
-              className="w-24 h-24 mx-auto text-secondary/30 mb-4"
+              className="w-24 h-24 mx-auto mb-4"
+              style={{ color: 'rgba(179, 179, 179, 0.3)' }}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -158,7 +176,7 @@ const Search = () => {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-            <p className="text-secondary text-lg">
+            <p className="text-text-secondary text-lg">
               No titles found. Try a different search term or adjust your filters.
             </p>
           </div>
