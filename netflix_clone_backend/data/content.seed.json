@@ -1,0 +1,28 @@
+[
+  {
+    "id": "t_001",
+    "title": "The Night Agent",
+    "type": "series",
+    "genre": "Thriller",
+    "year": 2023,
+    "maturityRating": "TV-MA",
+    "description": "An FBI agent becomes a central figure in a sprawling conspiracy after answering a mysterious phone call.",
+    "posterUrl": "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=600&q=60",
+    "backdropUrl": "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1600&q=60",
+    "durationMins": 50,
+    "isKids": false
+  },
+  {
+    "id": "t_002",
+    "title": "Planet Earth",
+    "type": "series",
+    "genre": "Documentary",
+    "year": 2006,
+    "maturityRating": "TV-PG",
+    "description": "A landmark nature documentary series showcasing Earth's wildlife and habitats.",
+    "posterUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=60",
+    "backdropUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=60",
+    "durationMins": 60,
+    "isKids": true
+  }
+]
