@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 // PUBLIC_INTERFACE
 /**
- * Sticky navigation bar component with Netflix styling and scroll effects
+ * Sticky navigation bar component with Netflix styling and scroll effects.
+ * Implements transparent-to-solid transition on scroll with smooth animations.
  */
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -11,7 +12,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      // Netflix-like scroll threshold (70px)
+      setScrolled(window.scrollY > 70);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -31,10 +33,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-bg-primary' : 'bg-gradient-to-b from-black/80 to-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        scrolled 
+          ? 'bg-bg-primary shadow-lg' 
+          : 'bg-transparent'
       }`}
-      style={{ height: '68px' }}
+      style={{ 
+        height: '68px',
+      }}
       role="navigation"
       aria-label="Main navigation"
     >
@@ -44,7 +50,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link
               to="/"
-              className="text-3xl font-bold tracking-tight transition-colors duration-200"
+              className="text-3xl font-bold tracking-tight transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-netflix-red focus:ring-offset-2 focus:ring-offset-transparent rounded"
               style={{ color: '#E50914' }}
               aria-label="Home"
             >
@@ -58,7 +64,7 @@ const Navbar = () => {
               <Link
                 key={path}
                 to={path}
-                className={`text-sm font-normal transition-colors duration-200 ${
+                className={`text-sm font-normal transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-netflix-red focus:ring-offset-2 focus:ring-offset-transparent rounded px-2 py-1 ${
                   isActive(path)
                     ? 'text-text-primary font-semibold'
                     : 'text-text-secondary hover:text-text-primary'
@@ -74,7 +80,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link
               to="/search"
-              className="p-2 rounded-full transition-all duration-200 text-text-primary hover:text-text-secondary"
+              className="p-2 rounded-full transition-all duration-200 text-text-primary hover:text-text-secondary focus:outline-none focus:ring-2 focus:ring-netflix-red focus:ring-offset-2 focus:ring-offset-transparent"
               aria-label="Search"
             >
               <svg
