@@ -1,10 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+// =============================================================================
+// TRANSITION DURATION CONFIGURATION
+// =============================================================================
+// Control the speed of the Navbar background transition from transparent to solid.
+// Adjust ACTIVE_PRESET to switch between presets, or customize TRANSITION_MS directly.
+
+const TRANSITION_PRESETS = {
+  fast: 150,    // Quick, snappy transition
+  normal: 250,  // Balanced, smooth transition (default)
+  slow: 400,    // Slower, more dramatic transition
+};
+
+// Set the active preset here (options: 'fast', 'normal', 'slow')
+const ACTIVE_PRESET = 'normal';
+
+// Transition duration in milliseconds (derived from preset)
+const TRANSITION_MS = TRANSITION_PRESETS[ACTIVE_PRESET];
+
+// =============================================================================
+
 // PUBLIC_INTERFACE
 /**
  * Sticky navigation bar component with Netflix styling and scroll effects.
  * Implements transparent-to-solid transition on scroll with smooth animations.
+ * 
+ * Transition speed can be configured via TRANSITION_PRESETS and ACTIVE_PRESET constants above.
  */
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -33,13 +55,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-50 ease-out ${
         scrolled 
           ? 'bg-bg-primary shadow-lg' 
           : 'bg-transparent'
       }`}
       style={{ 
         height: '68px',
+        transition: `background-color ${TRANSITION_MS}ms ease-out, box-shadow ${TRANSITION_MS}ms ease-out`,
       }}
       role="navigation"
       aria-label="Main navigation"
