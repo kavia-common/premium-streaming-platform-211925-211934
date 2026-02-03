@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMyList } from '../context/MyListContext';
 import { getFeaturedTitle } from '../data/mockData';
@@ -11,6 +11,15 @@ const Billboard = () => {
   const navigate = useNavigate();
   const { isInList, addTitle, removeTitle } = useMyList();
   const title = getFeaturedTitle();
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const inList = isInList(title.id);
 
@@ -24,7 +33,7 @@ const Billboard = () => {
 
   return (
     <div
-      className="relative w-full overflow-hidden animate-fade-in"
+      className="relative w-full overflow-hidden"
       style={{
         height: '56.25vw',
         maxHeight: '80vh',
@@ -34,7 +43,7 @@ const Billboard = () => {
       aria-label="Featured content"
     >
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <img
           src={title.thumbnail}
           alt=""
@@ -43,70 +52,94 @@ const Billboard = () => {
         />
       </div>
 
-      {/* Gradient Overlays */}
+      {/* Side Gradient Overlay (for text readability) */}
       <div 
-        className="absolute inset-0 z-10"
+        className="absolute inset-y-0 left-0 z-[1]"
         style={{
-          background: 'linear-gradient(to right, rgba(20, 20, 20, 0.8) 0%, transparent 50%)',
+          width: '40%',
+          background: 'linear-gradient(to right, rgba(20, 20, 20, 0.8) 0%, transparent 100%)',
         }}
       />
+
+      {/* Bottom Gradient Overlay */}
       <div 
-        className="absolute bottom-0 left-0 right-0 z-10"
+        className="absolute bottom-0 left-0 right-0 z-[1]"
         style={{
           height: '40%',
           background: 'linear-gradient(to top, #141414 0%, transparent 100%)',
         }}
       />
 
-      {/* Content */}
+      {/* Content Container */}
       <div 
-        className="absolute z-20 px-4 sm:px-6 lg:px-14"
+        className="absolute z-20 left-4 sm:left-8 md:left-12 lg:left-14 md:right-1/2"
         style={{
-          bottom: '35%',
+          bottom: isDesktop ? '35%' : '20%',
           maxWidth: '500px',
         }}
       >
         <h1 
-          className="text-5xl md:text-6xl font-bold text-text-primary mb-4 animate-slide-in"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6"
           style={{
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+            lineHeight: '1.2',
           }}
         >
           {title.title}
         </h1>
         
-        <div className="flex items-center space-x-3 text-sm mb-4">
-          <span className="text-success-green font-bold text-base">
+        <div className="flex items-center gap-3 mb-6">
+          <span 
+            className="font-bold"
+            style={{
+              color: '#46D369',
+              fontSize: '0.875rem',
+            }}
+          >
             98% Match
           </span>
           <span 
-            className="px-2 py-0.5 border text-xs font-semibold"
+            className="font-semibold text-white"
             style={{
-              borderColor: 'rgba(255, 255, 255, 0.4)',
+              padding: '0.125rem 0.5rem',
+              border: '1px solid rgba(255, 255, 255, 0.4)',
               borderRadius: '2px',
+              fontSize: '0.75rem',
             }}
           >
             {title.rating}
           </span>
-          <span className="text-text-primary">{title.year}</span>
-          <span className="text-text-primary">{title.duration}</span>
+          <span className="text-white" style={{ fontSize: '0.875rem' }}>{title.year}</span>
+          <span className="text-white" style={{ fontSize: '0.875rem' }}>{title.duration}</span>
         </div>
 
         <p 
-          className="text-lg text-text-primary mb-6 leading-relaxed line-clamp-3"
+          className="text-white mb-6"
           style={{
+            fontSize: '1.125rem',
+            lineHeight: '1.5',
             maxWidth: '450px',
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.6)',
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
           }}
         >
           {title.description}
         </p>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => navigate(`/title/${title.id}`)}
-            className="bg-white hover:bg-white/75 text-black px-8 py-3 rounded font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-bg-primary"
-            style={{ fontSize: '1.125rem' }}
+            className="bg-white text-black font-semibold rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
+            style={{ 
+              padding: isDesktop ? '0.75rem 2rem' : '0.5rem 1.5rem',
+              fontSize: isDesktop ? '1.125rem' : '1rem',
+              borderRadius: '0.25rem',
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = '#FFFFFF'}
             aria-label={`Play ${title.title}`}
           >
             <span className="flex items-center gap-3">
@@ -119,11 +152,14 @@ const Billboard = () => {
 
           <button
             onClick={handleMyListClick}
-            className="px-8 py-3 rounded font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-bg-primary"
+            className="font-semibold rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
             style={{ 
-              fontSize: '1.125rem',
+              padding: isDesktop ? '0.75rem 2rem' : '0.5rem 1.5rem',
+              fontSize: isDesktop ? '1.125rem' : '1rem',
               background: 'rgba(109, 109, 110, 0.7)',
               color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '0.25rem',
             }}
             onMouseEnter={(e) => e.target.style.background = 'rgba(109, 109, 110, 0.4)'}
             onMouseLeave={(e) => e.target.style.background = 'rgba(109, 109, 110, 0.7)'}
@@ -150,19 +186,25 @@ const Billboard = () => {
 
           <button
             onClick={() => navigate(`/title/${title.id}`)}
-            className="p-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-bg-primary"
+            className="rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
             style={{
+              width: '2rem',
+              height: '2rem',
+              padding: '0.5rem',
               background: 'rgba(42, 42, 42, 0.6)',
               border: '2px solid rgba(255, 255, 255, 0.5)',
               color: '#FFFFFF',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-              e.target.style.transform = 'scale(1.1)';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.transform = 'scale(1.1)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(42, 42, 42, 0.6)';
-              e.target.style.transform = 'scale(1)';
+              e.currentTarget.style.background = 'rgba(42, 42, 42, 0.6)';
+              e.currentTarget.style.transform = 'scale(1)';
             }}
             aria-label={`More info about ${title.title}`}
           >
